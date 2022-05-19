@@ -16,6 +16,9 @@ let propeller = document.createElement("audio");
 propeller.src = "sound/propeller.wav";
 
 let mouseIsPressed = false;
+let leftKeyisPressed = false;
+let rightKeyisPressed = false;
+let upKeyisPressed = false;
 
 // Global Variables (repeated)
 let state;
@@ -61,6 +64,8 @@ function draw() {
 // Events
 document.addEventListener("mousedown", mousedownHandler);
 document.addEventListener("mouseup", mouseupHandler);
+document.addEventListener("keydown", keydownHandler);
+document.addEventListener("keyup", keyupHandler);
 
 function mousedownHandler() {
     mouseIsPressed = true;
@@ -79,4 +84,32 @@ function mouseupHandler() {
     mouseIsPressed = false;
 
     propeller.pause();
+}
+
+function keydownHandler(event) {
+  if (event.code === "ArrowLeft") {
+    leftKeyisPressed = true;
+  } else if (event.code === "ArrowRight") {
+    rightKeyisPressed = true;
+  } else if (event.code === "ArrowUp") {
+    upKeyisPressed = true;
+  }
+
+
+  // Propeller Sound
+  propeller.CurrentTime = 0;
+  propeller.play();
+}
+
+function keyupHandler(event) {
+  propeller.pause();
+
+  if (event.code === "ArrowLeft") {
+    leftKeyisPressed = false;
+  } else if (event.code === "ArrowRight") {
+    rightKeyisPressed = false;
+  } else if (event.code === "ArrowUp") {
+    upKeyisPressed = false;
+  }
+
 }
