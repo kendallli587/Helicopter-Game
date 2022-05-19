@@ -29,6 +29,14 @@ function moveHeli() {
     if (mouseIsPressed) {
         heli.speed += -1;
     }
+    // Left/Right Motion
+    if (leftKeyisPressed) {
+      heli.x += -2;
+    } else if (rightKeyisPressed) {
+      heli.x += 2;
+    } else if (upKeyisPressed) {
+      heli.speed += -1;
+    }
 
     // Apply Gravity/Acceleration
     heli.speed += heli.accel;
@@ -110,7 +118,7 @@ function changeWallSpeed() {
   } else if (distance > 2300 && distance < 2500) {
     wallSpeed = -8.7;
   } else if (distance > 2500 && distance < 3000) {
-    wallSpeed = -0.0;
+    wallSpeed = -9.0;
   } else if (distance > 3000 && distance < 3500) {
     wallSpeed = -9.3;
   } else if (distance > 3500 && distance < 4000) {
