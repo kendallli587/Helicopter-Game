@@ -168,7 +168,7 @@ function updateRedZone() {
       rZoneY--;
     } else if (distance > 1000 && distance < 1600) {
       rZoneY++;
-    } else if (distance > 1300 && distance < 1900) {
+    } else if (distance > 1300 && distance < 2000) {
       rZoneY--;
     } 
   } else if (placement === "below") {
@@ -178,10 +178,17 @@ function updateRedZone() {
       rZoneY++;
     } else if (distance > 1000 && distance < 1600) {
       rZoneY--;
-    } else if (distance > 1300 && distance < 1900) {
+    } else if (distance > 1300 && distance < 2000) {
       rZoneY++;
     }
   }
+
+  // Fourth Red Zone
+  // if (rZone4X < 150 && distance > 750 && distance < 1000) {
+  //   rZone4X++;
+  // } else {
+  //   rZone4X -= 1;
+  // }
 
 }
 
@@ -195,6 +202,9 @@ function drawRedZone() {
 
   ctx.fillStyle = "rgb(" + rValue + ", 0, 0, 0.4";
   ctx.fillRect(0, rZoneY, cnv.width, 50);
+
+  ctx.fillStyle = "rgb(" + rValue + ", 0, 0, 0.4";
+  ctx.fillRect(rZone4X, 50, 50, cnv.height - 100);
 }
 
 function checkCollisions() {
