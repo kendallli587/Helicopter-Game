@@ -183,13 +183,6 @@ function updateRedZone() {
     }
   }
 
-  // Fourth Red Zone
-  // if (rZone4X < 150 && distance > 750 && distance < 1000) {
-  //   rZone4X++;
-  // } else {
-  //   rZone4X -= 1;
-  // }
-
 }
 
 function drawRedZone() {
