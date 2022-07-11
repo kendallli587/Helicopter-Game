@@ -195,9 +195,6 @@ function drawRedZone() {
 
   ctx.fillStyle = "rgb(" + rValue + ", 0, 0, 0.4";
   ctx.fillRect(0, rZoneY, cnv.width, 50);
-
-  ctx.fillStyle = "rgb(" + rValue + ", 0, 0, 0.4";
-  ctx.fillRect(rZone4X, 50, 50, cnv.height - 100);
 }
 
 function checkCollisions() {
