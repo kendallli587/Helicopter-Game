@@ -135,10 +135,10 @@ function changeWallSpeed() {
 function horizontalRedZone() {
   random = Math.random();
   if (random < 0.5) {
-    rZoneY = -100;
+    redZone3.y = -100;
     placement = "above";
   } else {
-    rZoneY = cnv.height + 100;
+    redZone3.y = cnv.height + 100;
     placement = "below";
   }
 }
@@ -148,38 +148,38 @@ function updateRedZone() {
 
   // First Red Zone
   if (distance > randZone1) {
-    rZone1X -= 1;
-  } else if (rZone1X < randDistanceEnd1 && rValue > 250) {
-    rZone1X++;
+    redZone1.x--;
+  } else if (redZone1.x < randDistanceEnd1 && rValue > 250) {
+    redZone1.x++;
   }
 
   // Second Red Zone
   if (distance > randDistanceEnd2) {
-    rZone2X++
+    redZone2.x++
   } else {
-    rZone2X -= 1;
+    redZone2.x--;
   }
 
   // Third Red Zone
   if (placement === "above") {
     if (distance < 400) {
-      rZoneY++;
+      redZone3.y++;
     } else if (distance > 400 && distance < 1000) {
-      rZoneY--;
+      redZone3.y--;
     } else if (distance > 1000 && distance < 1600) {
-      rZoneY++;
+      redZone3.y++;
     } else if (distance > 1300 && distance < 2000) {
-      rZoneY--;
+      redZone3.y--;
     } 
   } else if (placement === "below") {
     if (distance < 400) {
-      rZoneY--;
+      redZone3.y--;
     } else if (distance > 400 && distance < 1000) {
-      rZoneY++;
+      redZone3.y++;
     } else if (distance > 1000 && distance < 1600) {
-      rZoneY--;
+      redZone3.y--;
     } else if (distance > 1300 && distance < 2000) {
-      rZoneY++;
+      redZone3.y++;
     }
   }
 
@@ -188,13 +188,13 @@ function updateRedZone() {
 function drawRedZone() {
 
   ctx.fillStyle = "rgb(" + rValue + ", 0, 0, 0.4";
-  ctx.fillRect(rZone1X, 50, 50, cnv.height - 100);
+  ctx.fillRect(redZone1.x, redZone1.y, redZone1.w, redZone1.h);
 
   ctx.fillStyle = "rgb(" + rValue + ", 0, 0, 0.4";
-  ctx.fillRect(rZone2X, 50, 50, cnv.height - 100);
+  ctx.fillRect(redZone2.x, redZone2.y, redZone2.w, redZone2.h);
 
   ctx.fillStyle = "rgb(" + rValue + ", 0, 0, 0.4";
-  ctx.fillRect(0, rZoneY, cnv.width, 50);
+  ctx.fillRect(redZone3.x, redZone3.y, redZone3.w, redZone3.h);
 }
 
 // CS20 Functionize Collision Detection
@@ -222,90 +222,13 @@ function checkCollisions() {
   }
 
   // Walls 1-3
-  if (rectCollide(heli, wall1)) {
-    gameOver();
-  } else if (rectCollide(heli, wall2)) {
-    gameOver();
-  } else if (rectCollide(heli, wall3)) {
+  if (rectCollide(heli, wall1) || rectCollide(heli, wall2) || rectCollide(heli, wall3)) {
     gameOver();
   }
-
-  // // HITS THE LEFT WALL
-  // if (heliFront > wall1Left && heliBack < wall1Right) {
-  //   if (wall1Top < heliYCenter && heliYCenter < wall1Bottom) {
-  //       gameOver();
-  //     }
-  // } else if (heliFront > wall2Left && heliBack < wall2Right) {
-  //   if (wall2Top < heliYCenter && heliYCenter < wall2Bottom) {
-  //       gameOver();
-  //   }
-  // } else if (heliFront > wall3Left && heliBack < wall3Right) {
-  //   if (wall3Top < heliYCenter && heliYCenter < wall3Bottom) {
-  //       gameOver();
-  //   }
-  // }
-
-  // // HITS TOP OF WALL (helicopted falls onto wall, rather than flies into)
-  // if (heliBottom > wall1Top && heliTop < wall1Top) {
-  //   if (heliFront > wall1Left && heliBack < wall1Left) {
-  //     gameOver();
-  //   }
-  // } else if (heliBottom > wall2Top && heliTop < wall2Top) {
-  //   if (heliFront > wall2Left && heliBack < wall2Left) {
-  //     gameOver();
-  //   }
-  // } else if (heliBottom > wall3Top && heliTop < wall2Top) {
-  //   if (heliFront > wall3Left && heliBack < wall3Left) {
-  //     gameOver();
-  //   }
-  //   }
-  // // HITS BOTTOM OF WALL
-  // if (heliTop < wall1Bottom && heliBottom > wall1Bottom) {
-  //   if (heliFront > wall1Left && heliBack < wall1Left) {
-  //     gameOver();
-  //   }
-  // } else if (heliTop < wall2Bottom && heliBottom > wall2Bottom) {
-  //   if (heliFront > wall2Left && heliBack < wall2Left) {
-  //     gameOver();
-  //   }
-  // } else if (heliTop < wall3Bottom && heliBottom > wall3Bottom) {
-  //     if (heliFront > wall3Left && heliBack < wall3Left) {
-  //       gameOver();
-  //     }
-  // }
 
   // Helicopter caught in red zone
-  let redZone1Left = rZone1X;
-  let redZone1Right = rZone1X + 50;
-  let heliFront = heli.x + heli.w;
-  let heliBack = heli.x;
-  let heliTop = heli.y;
-  let heliBottom = heli.y + heli.h;
-
-  if (rValue > 250) {
-    if (heliFront > redZone1Left && heliBack < redZone1Right) {
-      gameOver();
-    }
-  }
-
-  let redZone2Left = rZone2X;
-  let redZone2Right = rZone2X + 50;
-
-  if (heliFront > redZone2Left && heliBack < redZone2Right) {
+  if (rectCollide(heli, redZone1) || rectCollide(heli, redZone2) || rectCollide(heli, redZone3)) {
     gameOver();
-  }
-
-  let redZone3Top = rZoneY;
-  let redZone3Bottom = rZoneY + 50;
-
-  if (placement === "above") {
-    if (heliTop < redZone3Bottom) {
-      gameOver();
-    }
-  } else if (placement === "below") {
-    if (heliBottom > redZone3Top) {
-      gameOver();
-    }
   }
 }
 
@@ -376,6 +299,27 @@ function reset() {
         y: Math.random() * 300 + 100,
         w: 50,
         h: 100,
+    };
+
+    redZone1 = {
+      x: 0,
+      y: 50,
+      w: 50,
+      h: cnv.height - 100
+    };
+
+    redZone2 = {
+      x: 1500,
+      y: 50,
+      w: 50,
+      h: cnv.height - 100
+    };
+
+    redZone3 = {
+      x: 0,
+      y: rZoneY,
+      w: cnv.width,
+      h: 50
     };
 }
 

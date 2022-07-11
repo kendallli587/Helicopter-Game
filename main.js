@@ -29,25 +29,23 @@ let latestScore = 0;
 let bestScore = 0;
 let wallSpeed = -3;
 let rValue = 0;
-let rZone1X = 0;
-let rZone2X = 1500;
+
 let randZone1 = Math.random() * 600 + 300;
 let randDistanceEnd1 = Math.random() * 300 + 50;
 let randDistanceEnd2 = Math.random() * 800 + 800;
 
 let rZoneY;
 let placement;
-let random = Math.random();
-horizontalRedZone();
+let random;
 
 
 // Wall Y value (top-left corner) should be between 100 and 400
     // 100: Gives space for green row + 50px
     // 400 because the wall is 100px long on top of the 100px at the bottom
-// All 3 walls are 3 pixels apart
-
 let wall1, wall2, wall3;
+let redZone1, redZone2, redZone3;
 reset();
+horizontalRedZone();
 
 // Draw Function
 window.addEventListener("load", draw);
@@ -58,8 +56,6 @@ function draw() {
     distance = 0;
     wallSpeed = -3;
     rValue = 0;
-    rZone1X = 0;
-    rZone2X = 1500;
     horizontalRedZone();
 
   } else if (state === "gameon") {
