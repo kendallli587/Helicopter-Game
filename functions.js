@@ -208,7 +208,7 @@ function rectCollide(rect1, rect2) {
   let rect2Left = rect2.x;
   let rect2Right = rect2.x + rect2.w;
 
-  return rect1Top < rect2Bottom && rect1Bot > rect2Top && rect1Left < rect2Right && rect1Right > rect2Left
+  return rect1Top < rect2Bot && rect1Bot > rect2Top && rect1Left < rect2Right && rect1Right > rect2Left
 }
 
 function checkCollisions() {
@@ -277,6 +277,10 @@ function checkCollisions() {
   // Helicopter caught in red zone
   let redZone1Left = rZone1X;
   let redZone1Right = rZone1X + 50;
+  let heliFront = heli.x + heli.w;
+  let heliBack = heli.x;
+  let heliTop = heli.y;
+  let heliBottom = heli.y + heli.h;
 
   if (rValue > 250) {
     if (heliFront > redZone1Left && heliBack < redZone1Right) {
