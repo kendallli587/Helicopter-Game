@@ -197,6 +197,20 @@ function drawRedZone() {
   ctx.fillRect(0, rZoneY, cnv.width, 50);
 }
 
+// CS20 Functionize Collision Detection
+function rectCollide(rect1, rect2) {
+  let rect1Top = rect1.y;
+  let rect1Bot = rect1.y + rect1.h;
+  let rect1Left = rect1.x;
+  let rect1Right = rect1.x + rect1.w;
+  let rect2Top = rect2.y;
+  let rect2Bot = rect2.y + rect2.h;
+  let rect2Left = rect2.x;
+  let rect2Right = rect2.x + rect2.w;
+
+  return rect1Top < rect2Bottom && rect1Bot > rect2Top && rect1Left < rect2Right && rect1Right > rect2Left
+}
+
 function checkCollisions() {
   // Collision with Top / Bottom Green Bars
   if (heli.y < 50) {
@@ -207,72 +221,58 @@ function checkCollisions() {
     gameOver();
   }
 
-
-  // Collision with Walls
-  let heliFront = heli.x + heli.w;
-  let heliBack = heli.x
-  let heliTop = heli.y;
-  let heliBottom = heli.y + heli.h;
-  let heliYCenter = heli.y + (heli.h / 2);
-
-  let wall1Left = wall1.x;
-  let wall1Right = wall1.x + wall1.w
-  let wall1Top = wall1.y;
-  let wall1Bottom = wall1.y + wall1.h
-
-  let wall2Left = wall2.x;
-  let wall2Right = wall2.x + wall2.w
-  let wall2Top = wall2.y;
-  let wall2Bottom = wall2.y + wall2.h
-
-  let wall3Left = wall3.x;
-  let wall3Right = wall3.x + wall3.w
-  let wall3Top = wall3.y;
-  let wall3Bottom = wall3.y + wall3.h
-
-  // HITS THE LEFT WALL
-  if (heliFront > wall1Left && heliBack < wall1Right) {
-    if (wall1Top < heliYCenter && heliYCenter < wall1Bottom) {
-        gameOver();
-      }
-  } else if (heliFront > wall2Left && heliBack < wall2Right) {
-    if (wall2Top < heliYCenter && heliYCenter < wall2Bottom) {
-        gameOver();
-    }
-  } else if (heliFront > wall3Left && heliBack < wall3Right) {
-    if (wall3Top < heliYCenter && heliYCenter < wall3Bottom) {
-        gameOver();
-    }
+  // Walls 1-3
+  if (rectCollide(heli, wall1)) {
+    gameOver();
+  } else if (rectCollide(heli, wall2)) {
+    gameOver();
+  } else if (rectCollide(heli, wall3)) {
+    gameOver();
   }
 
-  // HITS TOP OF WALL (helicopted falls onto wall, rather than flies into)
-  if (heliBottom > wall1Top && heliTop < wall1Top) {
-    if (heliFront > wall1Left && heliBack < wall1Left) {
-      gameOver();
-    }
-  } else if (heliBottom > wall2Top && heliTop < wall2Top) {
-    if (heliFront > wall2Left && heliBack < wall2Left) {
-      gameOver();
-    }
-  } else if (heliBottom > wall3Top && heliTop < wall2Top) {
-    if (heliFront > wall3Left && heliBack < wall3Left) {
-      gameOver();
-    }
-    }
-  // HITS BOTTOM OF WALL
-  if (heliTop < wall1Bottom && heliBottom > wall1Bottom) {
-    if (heliFront > wall1Left && heliBack < wall1Left) {
-      gameOver();
-    }
-  } else if (heliTop < wall2Bottom && heliBottom > wall2Bottom) {
-    if (heliFront > wall2Left && heliBack < wall2Left) {
-      gameOver();
-    }
-  } else if (heliTop < wall3Bottom && heliBottom > wall3Bottom) {
-      if (heliFront > wall3Left && heliBack < wall3Left) {
-        gameOver();
-      }
-  }
+  // // HITS THE LEFT WALL
+  // if (heliFront > wall1Left && heliBack < wall1Right) {
+  //   if (wall1Top < heliYCenter && heliYCenter < wall1Bottom) {
+  //       gameOver();
+  //     }
+  // } else if (heliFront > wall2Left && heliBack < wall2Right) {
+  //   if (wall2Top < heliYCenter && heliYCenter < wall2Bottom) {
+  //       gameOver();
+  //   }
+  // } else if (heliFront > wall3Left && heliBack < wall3Right) {
+  //   if (wall3Top < heliYCenter && heliYCenter < wall3Bottom) {
+  //       gameOver();
+  //   }
+  // }
+
+  // // HITS TOP OF WALL (helicopted falls onto wall, rather than flies into)
+  // if (heliBottom > wall1Top && heliTop < wall1Top) {
+  //   if (heliFront > wall1Left && heliBack < wall1Left) {
+  //     gameOver();
+  //   }
+  // } else if (heliBottom > wall2Top && heliTop < wall2Top) {
+  //   if (heliFront > wall2Left && heliBack < wall2Left) {
+  //     gameOver();
+  //   }
+  // } else if (heliBottom > wall3Top && heliTop < wall2Top) {
+  //   if (heliFront > wall3Left && heliBack < wall3Left) {
+  //     gameOver();
+  //   }
+  //   }
+  // // HITS BOTTOM OF WALL
+  // if (heliTop < wall1Bottom && heliBottom > wall1Bottom) {
+  //   if (heliFront > wall1Left && heliBack < wall1Left) {
+  //     gameOver();
+  //   }
+  // } else if (heliTop < wall2Bottom && heliBottom > wall2Bottom) {
+  //   if (heliFront > wall2Left && heliBack < wall2Left) {
+  //     gameOver();
+  //   }
+  // } else if (heliTop < wall3Bottom && heliBottom > wall3Bottom) {
+  //     if (heliFront > wall3Left && heliBack < wall3Left) {
+  //       gameOver();
+  //     }
+  // }
 
   // Helicopter caught in red zone
   let redZone1Left = rZone1X;
