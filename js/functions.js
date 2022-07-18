@@ -56,24 +56,24 @@ function moveHeli() {
 
 function moveWalls() {
   // Wall 1
-  wall1.x += wallSpeed;
-  if (wall1.x + wall1.w < 0) {
-    wall1.x = wall3.x + 500;
-    wall1.y = Math.random() * 300 + 100;
+  walls[0].x += wallSpeed;
+  if (walls[0].x + walls[0].w < 0) {
+    walls[0].x = walls[2].x + 500;
+    walls[0].y = Math.random() * 300 + 100;
   }
     
   // Wall 2
-  wall2.x += wallSpeed;
-  if (wall2.x + wall2.w < 0) {
-    wall2.x = wall1.x + 500;
-    wall2.y = Math.random() * 300 + 100;
+  walls[1].x += wallSpeed;
+  if (walls[1].x + walls[1].w < 0) {
+    walls[1].x = walls[0].x + 500;
+    walls[1].y = Math.random() * 300 + 100;
   }
 
   // Wall 3
-  wall3.x += wallSpeed;
-  if (wall3.x + wall3.w < 0) {
-    wall3.x = wall2.x + 500;
-    wall3.y = Math.random() * 300 + 100;
+  walls[2].x += wallSpeed;
+  if (walls[2].x + walls[2].w < 0) {
+    walls[2].x = walls[1].x + 500;
+    walls[2].y = Math.random() * 300 + 100;
   }
 
   changeWallSpeed();
@@ -222,7 +222,7 @@ function checkCollisions() {
   }
 
   // Walls 1-3
-  if (rectCollide(heli, wall1) || rectCollide(heli, wall2) || rectCollide(heli, wall3)) {
+  if (rectCollide(heli, walls[0]) || rectCollide(heli, walls[1]) || rectCollide(heli, walls[2])) {
     gameOver();
   }
 
@@ -280,21 +280,21 @@ function reset() {
       accel: 0.7
   };
 
-  wall1 = {
+  walls[0] = {
     x: cnv.width,
     y: Math.random() * 300 + 100,
     w: 50,
     h: 100
   };
 
-  wall2 = {
+  walls[1] = {
     x: cnv.width + 500,
     y: Math.random() * 300 + 100,
     w: 50,
     h: 100
   };
 
-  wall3 = {
+  walls[2] = {
     x: cnv.width + 1000,
     y: Math.random() * 300 + 100,
     w: 50,
@@ -323,12 +323,34 @@ function reset() {
   };
 }
 
+function initWalls() {
+  let temp = [
+    {x: cnv.width,
+     y: Math.random() * 300 + 100,
+     w: 50,
+     h: 100
+    }, {
+     x: cnv.width + 500,
+     y: Math.random() * 300 + 100,
+     w: 50,
+     h: 100
+    }, {
+      x: cnv.width + 1000,
+      y: Math.random() * 300 + 100,
+      w: 50,
+      h: 100
+    }
+  ];
+
+  return temp;
+}
+
 function drawWalls() {
   // Draw Walls
   ctx.fillStyle = "green";
-  ctx.fillRect(wall1.x, wall1.y, wall1.w, wall1.h);
-  ctx.fillRect(wall2.x, wall2.y, wall2.w, wall2.h);
-  ctx.fillRect(wall3.x, wall3.y, wall3.w, wall3.h);
+  ctx.fillRect(walls[0].x, walls[0].y, walls[0].w, walls[0].h);
+  ctx.fillRect(walls[1].x, walls[1].y, walls[1].w, walls[1].h);
+  ctx.fillRect(walls[2].x, walls[2].y, walls[2].w, walls[2].h);
 }
 
 function drawMainComponents() {
