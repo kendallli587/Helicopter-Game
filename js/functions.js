@@ -277,7 +277,7 @@ function reset() {
       w: 80,
       h: 40,
       speed: 0,
-      accel: 0.7,
+      accel: 0.7
   };
 
   wall1 = {
