@@ -42,7 +42,7 @@ let random;
 // Wall Y value (top-left corner) should be between 100 and 400
     // 100: Gives space for green row + 50px
     // 400 because the wall is 100px long on top of the 100px at the bottom
-let walls = initWalls();
+let wall1, wall2, wall3;
 let redZone1, redZone2, redZone3;
 reset();
 horizontalRedZone();
